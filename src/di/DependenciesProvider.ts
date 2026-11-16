@@ -2,7 +2,7 @@ import GetProductsUseCase from "../domain/products/GetProductsUseCase";
 import ProductInMemoryRepository from "../data/products/ProductInMemoryRepository";
 import { ProductsBloc } from "../presentation/products/ProductsBloc";
 import GetCartUseCase from "../domain/cart/usecases/GetCartUseCase";
-import CartInMemoryRepository from "../data/cart/CartInMemoryRepository";
+import CartLocalStorageRepository from "../data/cart/CartLocalStorageRepository";
 import { CartBloc } from "../presentation/cart/CartBloc";
 import AddProductToCartUseCase from "../domain/cart/usecases/AddProductToCartUseCase";
 import RemoveItemFromCartUseCase from "../domain/cart/usecases/RemoveItemFromCartUseCase";
@@ -17,7 +17,7 @@ export function provideProductsBloc(): ProductsBloc {
 }
 
 export function provideCartBloc(): CartBloc {
-    const cartRepository = new CartInMemoryRepository();
+    const cartRepository = new CartLocalStorageRepository();
     const getCartUseCase = new GetCartUseCase(cartRepository);
     const addProductToCartUseCase = new AddProductToCartUseCase(cartRepository);
     const removeItemFromCartUseCase = new RemoveItemFromCartUseCase(cartRepository);
