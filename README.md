@@ -26,6 +26,19 @@ All strategies uses Clean architecture
 
 ![bloc-clean-architecture](https://user-images.githubusercontent.com/5593590/82728951-03ec6a00-9cf4-11ea-8557-011a3dea7804.png)
 
+## Fork improvements
+
+This fork adds cart persistence on top of the original clean-architecture example:
+
+* **`CartLocalStorageRepository`** (`src/data/cart/CartLocalStorageRepository.ts`) — a drop-in
+  `CartRepository` implementation backed by `localStorage`. The cart now survives page reloads
+  and browser restarts. Corrupted payloads fall back to the seed cart instead of crashing, and
+  environments without usable storage (private mode, quota errors) degrade to an in-memory cart.
+* Items read from storage are **validated** (`isValidCartItem`) so stale or hand-edited schemas
+  never reach the domain layer.
+* Unit tests covering persistence, corrupted JSON and invalid item shapes:
+  `src/data/cart/__test__/CartLocalStorageRepository.test.ts`.
+
 ## Available Scripts
 
 In the project directory, you can run:
